@@ -28,7 +28,9 @@ const Tree = require("v2-tree");
 |slot|具名插槽，请看slot用法|-|-|
 
 ### Slot
-<small>适用于自定义添加弹框节点</small>
+
+适用于自定义添加弹框节点
+
 |名称|说明|
 |-|-|
 |modal|自定义添加弹框|
