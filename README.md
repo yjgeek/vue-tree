@@ -1,13 +1,13 @@
 # vue-tree
 
-**先来看下效果图:**
+## 先来看下效果图
 ![vue树形结构展示插件](http://p3x5m4etk.bkt.clouddn.com/1536200555123w3nqi8dix3)
 
-**安装:**
+## 安装
 ```js
 $ npm install v2-tree
 ```
-**引入方式:**
+## 引入方式
 ```js
 import Tree from "v2-tree"
 
@@ -35,7 +35,8 @@ const Tree = require("v2-tree");
 |-|-|
 |modal|自定义添加弹框|
 
-示例: 
+## 示例
+
 [点击跳转到我的博客查看吧](http://www.yjgeek.com/article/2018-09-06/vue%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84(%E9%87%91%E5%AD%97%E5%A1%94)%E6%8F%92%E4%BB%B6)
 
 ## License
