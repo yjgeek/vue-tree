@@ -1,6 +1,18 @@
 <template>
     <div class="tree" id="tree">
-      <tree-node v-for="(item, i) in sources" :key="i" :parents="sources" :index="i" :data="item"></tree-node>
+      <tree-node
+        v-for="(item, i) in sources"
+        :key="i"
+        :parents="sources"
+        :index="i"
+        :data="item"
+
+        @handleClick="$emit('handleClick', arguments[0],arguments[1],arguments[2])"
+        @handleDblClick="$emit('handleDblclick', arguments[0],arguments[1],arguments[2])"
+        @handleAdd="handleAdd"
+        @handleRemove="$emit('handleRemove', arguments[0],arguments[1],arguments[2])"
+        @handleEdit="handleEdit"
+      ></tree-node>
       <template v-if="isShowModal">
           <div class="make"></div>
           <div class="add-modal">
@@ -8,29 +20,29 @@
                   <div class="title">添加节点</div>
                   <div class="form">
                       <div class="item">
-                          <input type="text" v-model="name" placeholder="请输入节点名字">
+                          <input type="text" v-model="form.name" placeholder="请输入节点名字">
                       </div>
                       <div class="item">
-                          <input name="status" type="radio" id="parent" v-model="status" :value="1">
+                          <input name="status" type="radio" id="parent" v-model="form.type" :value="1">
                           <label for="parent">添加兄弟节点</label>
-                          <input name="status" type="radio" id="child" v-model="status" :value="2">
+                          <input name="status" type="radio" id="child" v-model="form.type" :value="2">
                           <label for="child">添加子节点</label>
                       </div>
                   </div>
                   <div class="footer">
                       <button @click="closeModal">取消</button>
-                      <button class="primary" @click="addChild">确定</button>
+                      <button class="primary" @click="handleSubmit">确定</button>
                   </div>
               </div>
           </div>
       </template>
+      <slot name="modal"></slot>
     </div>
 </template>
 <script>
-import Vue from "vue";
 import TreeNode from "./TreeNode";
 export default {
-  name: "v-tree",
+  name: "v2-tree",
   props: {
     sources: {
       type: Array,
@@ -41,11 +53,16 @@ export default {
   },
   data() {
     return {
-      data: {},
-      parent: {},
-      index: '',
-      name: "",
-      status: 2,
+      params:{
+        data: {},
+        parent: {},
+        index: ''
+      },
+      form:{
+        name: "",
+        type: 2
+      },
+      operatingType: '', //操作类型
       isShowModal: false
     };
   },
@@ -73,30 +90,52 @@ export default {
         }
       }
     },
-
-    //处理标题的单击事件
-    handleClick(data, parent, index) {
-      this.$emit("onClick", data, parent, index);
-    },
     //关闭弹框的回调
     closeModal(){
       this.isShowModal = false;
-      this.name = '',
-      this.status = 2;
+      this.form = {
+        name: '',
+        type: 2
+      }
+      this.operatingType = '';
     },
-    addChild() {
-      const {name, status, data, parent, index} = this;
-      let params = {
-        params: {name, status},
-        obj: {data, parent, index},
+    //添加事件，如果有具名modal则发射弹框事件
+    handleAdd() {
+      if (this.$slots.modal) {
+        this.$emit('handleShowModal', 'add', ...arguments)
+      } else {
+        this.params = {
+          data: arguments[0],
+          parent: arguments[1],
+          index: arguments[2]
+        }
+        this.isShowModal = true
+        this.operatingType = 'add'
+      }
+    },
+    //更改事件，如果有具名modal则发射弹框事件
+    handleEdit() {
+      if (this.$slots.modal) {
+        this.$emit('handleShowModal', 'edit', ...arguments)
+      } else {
+        this.params = {
+          data: arguments[0],
+          parent: arguments[1],
+          index: arguments[2]
+        }
+        this.isShowModal = true
+        this.form.name = arguments[0].name
+        this.operatingType = 'edit'
+      }
+    },
+    handleSubmit() {
+      const {params, form, operatingType} = this
+      let obj = {
+        form,
+        params,
         closeModalCallback: this.closeModal
       }
-      this.$emit("add", params);
-    },
-    removeItem(data) {
-      this.$api["organizationDelete"]({ id: data.id }).then(res => {
-        this.getData();
-      });
+      this.$emit(operatingType=='add'?"handleAdd":"handleEdit", obj)
     }
   },
   components: {
@@ -114,29 +153,9 @@ export default {
   },
   mounted() {
     window.onresize = this.crossLine;
-    GLOBAL.vbus.$on("handleClick", this.handleClick);
     this.$nextTick(() => {
       this.crossLine();
     });
-    GLOBAL.vbus.$on("addChild", (data, parent, index) => {
-      if (this.$slots.modal) {
-        this.$emit('showModal', data, parent, index)
-      } else {
-        this.data=data;
-        this.parent=parent;
-        this.index=index;
-        this.isShowModal = true;
-      }
-    });
-    GLOBAL.vbus.$on("removeItem", (data, parent, index) => {
-      this.$emit("remove", data, parent, index);
-    });
-  },
-  created() {
-    if (!window.GLOBAL || (window.GLOBAL && !window.GLOBAL.vbus)) {
-      window.GLOBAL = window.GLOBAL || {};
-      window.GLOBAL.vbus = new Vue();
-    }
   }
 };
 </script>

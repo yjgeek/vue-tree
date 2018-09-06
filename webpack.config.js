@@ -1,8 +1,19 @@
 var path = require('path')
 var webpack = require('webpack')
+let devConf = {};
+if(process.env.NODE_ENV == 'development'){
+  devConf = {
+    entry: './src/main.js',
+    output: {
+      path: path.resolve(__dirname, './dist'),
+      publicPath: '/dist/',
+      filename: 'build.js'
+    }
+  }
+}
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/lib/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -11,6 +22,7 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
+  ...devConf,
   module: {
     rules: [
       {

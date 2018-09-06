@@ -21,10 +21,12 @@ const Tree = require("v2-tree");
 |属性|说明|类型|默认值|
 |-|-|-|-|
 |sources|数据结构|Array|[]|
-|onClick|单击节点的回调函数|Function(data,parent,index)|-|
-|add|添加节点的回调函数，注意如果是自定义弹框(showModal)，此回调无效|Function({params, obj, closeModalCallback})|-|
-|remove|删除节点的回调函数|Function(data, parent, index)|-|
-|showModal|显示自定义添加节点弹框回调函数,必须要有具名插槽slot="modal"|Function(data, parent, index)|-|
+|handleClick|单击节点的回调函数|Function(data,parent,index)|-|
+|handleDblclick|双击节点的回调函数|Function(data,parent,index)|-|
+|handleAdd|添加节点的回调函数，注意如果是自定义弹框(showModal)，此回调无效|Function({params, obj, closeModalCallback})|-|
+|handleEdit|更改节点的回调函数，注意如果是自定义弹框(showModal)，此回调无效|Function({params, obj, closeModalCallback})|-|
+|handleRemove|删除节点的回调函数|Function(data, parent, index)|-|
+|handleShowModal|显示自定义添加节点弹框回调函数,必须要有具名插槽slot="modal"， type=add\|edit |Function(type, data, parent, index)|-|
 |slot|具名插槽，请看slot用法|-|-|
 
 ### Slot
