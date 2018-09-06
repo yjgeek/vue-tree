@@ -8,11 +8,12 @@
         :data="item"
 
         @handleClick="$emit('handleClick', arguments[0],arguments[1],arguments[2])"
-        @handleDblClick="$emit('handleDblclick', arguments[0],arguments[1],arguments[2])"
+        @handleDblclick="$emit('handleDblclick', arguments[0],arguments[1],arguments[2])"
         @handleAdd="handleAdd"
         @handleRemove="$emit('handleRemove', arguments[0],arguments[1],arguments[2])"
         @handleEdit="handleEdit"
       ></tree-node>
+        <!-- @handleDblclick="$emit('handleDblclick', arguments[0],arguments[1],arguments[2])" -->
       <template v-if="isShowModal">
           <div class="make"></div>
           <div class="add-modal">
@@ -67,6 +68,9 @@ export default {
     };
   },
   methods: {
+    aa(ad){
+      console.log(ad)
+    },
     //划线
     crossLine() {
       let $tree = document.getElementById("tree");
