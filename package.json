@@ -23,6 +23,9 @@
     "last 2 versions",
     "not ie <= 8"
   ],
+  "keywords": [
+    "vue","树形结构","金字塔结构"
+  ],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
