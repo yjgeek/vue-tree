@@ -115,6 +115,9 @@ export default {
   mounted() {
     window.onresize = this.crossLine;
     GLOBAL.vbus.$on("handleClick", this.handleClick);
+    this.$nextTick(() => {
+      this.crossLine();
+    });
     GLOBAL.vbus.$on("addChild", (data, parent, index) => {
       if (this.$slots.modal) {
         this.$emit('showModal', data, parent, index)
