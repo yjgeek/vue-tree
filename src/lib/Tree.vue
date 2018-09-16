@@ -68,9 +68,6 @@ export default {
     };
   },
   methods: {
-    aa(ad){
-      console.log(ad)
-    },
     //划线
     crossLine() {
       let $tree = document.getElementById("tree");
@@ -160,6 +157,9 @@ export default {
     this.$nextTick(() => {
       this.crossLine();
     });
+  },
+  beforeDestroy () {
+    window.onresize="";
   }
 };
 </script>
