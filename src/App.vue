@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v2-tree :sources="sources"></v2-tree>
+    <v2-tree v-if="!aa" :sources="sources"></v2-tree>
   </div>
 </template>
 <script>

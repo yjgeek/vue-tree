@@ -14,9 +14,9 @@
   },
   "homepage": "https://github.com/yuanjie007/vue-tree#readme",
   "repository": {
-		"type": "git",
-		"url": "git+https://github.com/yuanjie007/vue-tree.git"
-	},
+    "type": "git",
+    "url": "git+https://github.com/yuanjie007/vue-tree.git"
+  },
   "main": "./dist/tree.js",
   "browserslist": [
     "> 1%",
@@ -24,7 +24,9 @@
     "not ie <= 8"
   ],
   "keywords": [
-    "vue","树形结构","金字塔结构"
+    "vue",
+    "树形结构",
+    "金字塔结构"
   ],
   "devDependencies": {
     "babel-core": "^6.26.0",
