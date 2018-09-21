@@ -1,7 +1,7 @@
 {
   "name": "v2-tree",
   "description": "基于vue2的树形结构展示组件",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "author": "yjgeek <1669171322@qq.com>",
   "license": "MIT",
   "private": false,
