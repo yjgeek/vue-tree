@@ -67,8 +67,9 @@ export default {
   },
   methods: {
     //划线
-    crossLine() {
+    crossLine () {
       let $tree = document.getElementById("tree");
+      if (!$tree) return ;
       let childs = $tree.getElementsByClassName("child");
       let titles = $tree.getElementsByClassName("title");
       let len = childs.length;
@@ -90,7 +91,7 @@ export default {
       }
     },
     //关闭弹框的回调
-    closeModal(){
+    closeModal () {
       this.isShowModal = false;
       this.form = {
         name: '',
@@ -99,7 +100,7 @@ export default {
       this.operatingType = '';
     },
     //添加事件，如果有具名modal则发射弹框事件
-    handleAdd() {
+    handleAdd () {
       if (this.$slots.modal) {
         this.$emit('handleShowModal', 'add', ...arguments)
       } else {
@@ -113,7 +114,7 @@ export default {
       }
     },
     //更改事件，如果有具名modal则发射弹框事件
-    handleEdit() {
+    handleEdit () {
       if (this.$slots.modal) {
         this.$emit('handleShowModal', 'edit', ...arguments)
       } else {
@@ -127,7 +128,7 @@ export default {
         this.operatingType = 'edit'
       }
     },
-    handleSubmit() {
+    handleSubmit () {
       const {params, form, operatingType} = this
       let obj = {
         form,
@@ -141,7 +142,7 @@ export default {
     TreeNode
   },
   watch: {
-    sources:{
+    sources: {
       handler(val){
         this.$nextTick(() => {
           this.crossLine();
@@ -150,7 +151,7 @@ export default {
       deep: true
     }
   },
-  mounted() {
+  mounted () {
     window.onresize = this.crossLine;
     this.$nextTick(() => {
       this.crossLine();

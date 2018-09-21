@@ -146,6 +146,7 @@ export default {
     }
     .child{
         display: flex;
+        justify-content: center;
     }
 }
 </style>
