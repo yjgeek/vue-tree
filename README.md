@@ -1,7 +1,7 @@
 # vue-tree
 
 ## 先来看下效果图
-![vue树形结构展示插件](http://p3x5m4etk.bkt.clouddn.com/1536200555123w3nqi8dix3)
+![vue树形结构展示插件](http://resources.yjgeek.com/1536200555123w3nqi8dix3)
 
 ## 安装
 ```js
